@@ -28,6 +28,7 @@ yarn-error.log*
 # local env files
 .env
 add.py
+evident-torus-378319-06bfd86395e7.json
 
 # vercel
 .vercel

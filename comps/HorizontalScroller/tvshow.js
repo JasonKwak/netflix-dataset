@@ -31,9 +31,9 @@ export default function Tvshow(){
     return (
         <div>
             <div className={styles.movie_head}>
-                <h1 className={styles.categoryhead}>Featured TV Shows</h1>
+                <h1 className={styles.categoryhead} id='categoryhead'>Featured TV Shows</h1>
                 
-                <div onClick={refreshList} className={styles.movie_head_child}>
+                <div onClick={refreshList} className={styles.movie_head_child} id='refresh'>
                     <Player
                         autoplay={false}
                         ref={animation}

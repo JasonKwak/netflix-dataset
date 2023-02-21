@@ -39,21 +39,21 @@ export default function Home() {
 
         <div className={styles.landingbanner}>
 
-          <div className={styles.landingtext}>
+          <div className={styles.landingtext} id="landingtext">
             <h1>Discover &</h1>
             <h1>Explore New Movies</h1>
-            <p style={{color:'var(--gray-color)'}}>Cinematic Adventure Awaits!</p>
+            <p>Cinematic Adventure Awaits!</p>
             <button onClick={scrollBelow} className={styles.landinglink}>View More</button>
           </div>
-          <div className={styles.animcont}>
-          <Player
-            autoplay={true}
-            loop={true}
-            speed={0.4}
-            src="/tv.json"
-            style={{ height: '100%', width: '100%'}}
-          />
-          </div>
+          <div className={styles.animcont} id='animcont'>
+            <Player
+              autoplay={true}
+              loop={true}
+              speed={0.4}
+              src="/tv.json"
+              style={{ height: '100%', width: '100%'}}
+            />
+            </div>
 
         </div>
 

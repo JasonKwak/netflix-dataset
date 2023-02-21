@@ -12,24 +12,23 @@ import { useState, useEffect } from 'react'
 
 export default function Library(){
 
-    let random = record.sort(() => Math.random() - 0.5);
+    // let random = record.sort(() => Math.random() - 0.5);
 
-    // let comedy = record.filter(film => (film.listed_in === "Comedy" || "Comedies")).sort(() => Math.random() - 0.5);
+    // let comedy = record.filter(film => (film.listed_in === "Comedy" || "Comedies")).sort(() => Math.record() - 0.5);
 
-    let tvshows = random.filter(film => (film.type === "TV Show"));
-    let movie = random.filter(film => (film.type === 'Movie'));
-    let r = random.filter(film => (film.rating === "R"));
-    let tvma = random.filter(film => (film.rating === "TV-MA"));
-    let tv14 = random.filter(film => (film.rating === "TV-14"));
-    let tvpg = random.filter(film => (film.rating === "TV-PG"));
-    let pg13 = random.filter(film => (film.rating === "PG-13"));
-    let comedy = random.filter(film => (film.listed_in === "Comedy" || "Comedies"));
-    let crime = random.filter(film => (film.listed_in === "Crime"));
-    let children = random.filter(film => (film.listed_in === "Children & Family Movies"));
-    let action = random.filter(film => (film.listed_in === "Action & Adventure"));
-    let anime = random.filter(film => (film.listed_in === "Anime"));
-    let horror = random.filter(film => (film.listed_in === "Crime"));
-    let korean = random.filter(film => (film.listed_in === "Korean"));
+    let tvshows = record.filter(film => (film.type === "TV Show"));
+    let movie = record.filter(film => (film.type === 'Movie'));
+    let r = record.filter(film => (film.rating === "R"));
+    let tvma = record.filter(film => (film.rating === "TV-MA"));
+    let tv14 = record.filter(film => (film.rating === "TV-14"));
+    let tvpg = record.filter(film => (film.rating === "TV-PG"));
+    let pg13 = record.filter(film => (film.rating === "PG-13"));
+    let comedy = record.filter(film => (film.listed_in === "Comedy" || "Comedies"));
+    let crime = record.filter(film => (film.listed_in === "Crime TV Shows"));
+    let children = record.filter(film => (film.listed_in === "Children & Family Movies"));
+    let action = record.filter(film => (film.listed_in === "Action & Adventure"));
+    let anime = record.filter(film => (film.listed_in === "Anime Series" || "Anime Features"));
+    let horror = record.filter(film => (film.listed_in === "TV Horror" || "Horror Movies"));
     let oldest = record.sort((a, b) => (a.release_year > b.release_year) ? 1 : -1);
     let latest = record.sort((a, b) => (a.release_year < b.release_year) ? 1 : -1);
 
@@ -75,9 +74,7 @@ export default function Library(){
             setHeader('Anime')
         } else if(e === horror){
             setHeader('Horror')
-        } else if(e === korean){
-            setHeader('Korean')
-        } 
+        }
     }
 
     const [showComponent, setShowComponent] = useState(false);
@@ -97,7 +94,7 @@ export default function Library(){
                 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
             </Head>
 
-            <div className={styles.main} style={{maxHeight:'100vh', overflowY:'none'}}>
+            <div className={styles.main} style={{maxHeight:'100vh'}} id='main'>
 
                 <Navigation />
 
@@ -132,7 +129,6 @@ export default function Library(){
                                     <li onClick={() => handleCategory(comedy)}>Comedy</li>
                                     <li onClick={() => handleCategory(crime)}>Crime</li>
                                     <li onClick={() => handleCategory(horror)}>Horror</li>
-                                    <li onClick={() => handleCategory(korean)}>Korean</li>
                                 </ul>
                             {/* <li style={{cursor:'not-allowed'}}>Release Year</li>
                             <ul>
@@ -148,7 +144,7 @@ export default function Library(){
                 <div className={styles.scrollablecont}>
                     <div className={styles.scrollablecontchild}>
                     <img className={styles.sorting} onClick={handleMenu} src='/sorting.svg'></img> 
-                    <h1 className={styles.categoryhead}>{header}</h1>
+                    <h1 className={styles.categoryhead} id='categorytitle'>{header}</h1>
                     </div>
 
                 <div className={styles.vertiscroll}>
