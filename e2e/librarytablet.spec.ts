@@ -7,16 +7,30 @@ test.use({
 })
 
 test.describe("Testing for library tablet", () => {
-    test("Testing for list hover colour on tablet", async ({ page }) => {
+    test("Testing height of sidebar menu on tablet", async ({ page }) => {
         await page.goto('http://localhost:3000/library');
 
-        const mainContainer = page.locator('#colouring');
+        const sideMenu = page.locator('#sidemenu');
+
+        const checkWidth = await sideMenu.evaluate((ele) => {
+            return window.getComputedStyle(ele).getPropertyValue("height")
+        })
+
+        console.log(checkWidth);
+        expect(checkWidth).toBe("1180px");
+    })
+
+    test("Testing for colours on tablet", async ({ page }) => {
+        await page.goto('http://localhost:3000/library');
+
+        const mainContainer = page.locator('#sidebar');
 
         const checkingBackgroundColour = await mainContainer.evaluate((ele) => {
             return window.getComputedStyle(ele).getPropertyValue("background-color")
         })
 
         console.log(checkingBackgroundColour);
-        expect(checkingBackgroundColour).toBe("rgb(0, 0, 255)");
+        expect(checkingBackgroundColour).toBe("rgba(0, 0, 0, 0)");
     })
+
 })

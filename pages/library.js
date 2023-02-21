@@ -12,23 +12,20 @@ import { useState, useEffect } from 'react'
 
 export default function Library(){
 
-    // let random = record.sort(() => Math.random() - 0.5);
 
-    // let comedy = record.filter(film => (film.listed_in === "Comedy" || "Comedies")).sort(() => Math.record() - 0.5);
-
-    let tvshows = record.filter(film => (film.type === "TV Show"));
-    let movie = record.filter(film => (film.type === 'Movie'));
-    let r = record.filter(film => (film.rating === "R"));
+    let children = record.filter(film => (film.listed_in === "Children & Family Movies"))
+    let horror = record.filter(film => (film.listed_in === "TV Horror" || film.listed_in === "Horror Movies"))
+    let tvshows = record.filter(film => (film.type === "TV Show")).sort(() => Math.random() - 0.5);
+    let movie = record.filter(film => (film.type === 'Movie')).sort(() => Math.random() - 0.5);
+    let r = record.filter(film => (film.rating === "R"))
     let tvma = record.filter(film => (film.rating === "TV-MA"));
     let tv14 = record.filter(film => (film.rating === "TV-14"));
     let tvpg = record.filter(film => (film.rating === "TV-PG"));
     let pg13 = record.filter(film => (film.rating === "PG-13"));
-    let comedy = record.filter(film => (film.listed_in === "Comedy" || "Comedies"));
-    let crime = record.filter(film => (film.listed_in === "Crime TV Shows"));
-    let children = record.filter(film => (film.listed_in === "Children & Family Movies"));
-    let action = record.filter(film => (film.listed_in === "Action & Adventure"));
-    let anime = record.filter(film => (film.listed_in === "Anime Series" || "Anime Features"));
-    let horror = record.filter(film => (film.listed_in === "TV Horror" || "Horror Movies"));
+    let comedy = record.filter(film => (film.listed_in === "Comedies" || film.listed_in === "TV Comedies"))
+    let crime = record.filter(film => (film.listed_in === "Crime TV Shows" || film.listed_in === "Crime"))
+    let action = record.filter(film => (film.listed_in === "Action & Adventure"))
+    let anime = record.filter(film => (film.listed_in === "Anime Series" || film.listed_in === "Anime Features"))
     let oldest = record.sort((a, b) => (a.release_year > b.release_year) ? 1 : -1);
     let latest = record.sort((a, b) => (a.release_year < b.release_year) ? 1 : -1);
 
@@ -100,8 +97,8 @@ export default function Library(){
 
                 <div className={styles.librarylayout}>
 
-                <div className={styles.sidemenucont}>
-                    <div className={filterMenu ? `${styles.mobilesidemenu}` : `${styles.sidemenu}`}>
+                <div className={styles.sidemenucont} id='sidemenu'>
+                    <div id='sidebar'className={filterMenu ? `${styles.mobilesidemenu}` : `${styles.sidemenu}`}>
                         
                         <ul>
                             <li onClick={() => handleCategory(movie)}>All Movies</li>

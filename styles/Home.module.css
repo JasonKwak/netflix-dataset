@@ -259,6 +259,7 @@ background-color: #16181a;
   height:100vh;
   font-family: 'Manrope', sans-serif;
   font-weight:bold;
+  background-color:transparent;
   color:var(--white-color);
 }
 
