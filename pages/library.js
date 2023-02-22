@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react'
 export default function Library(){
 
 
-    let children = record.filter(film => (film.listed_in === "Children & Family Movies"))
+    let children = record.filter(film => (film.listed_in === "Children & Family Movies" || film.listed_in === "Kids' TV"))
     let horror = record.filter(film => (film.listed_in === "TV Horror" || film.listed_in === "Horror Movies"))
     let tvshows = record.filter(film => (film.type === "TV Show")).sort(() => Math.random() - 0.5);
     let movie = record.filter(film => (film.type === 'Movie')).sort(() => Math.random() - 0.5);
@@ -22,55 +22,64 @@ export default function Library(){
     let tv14 = record.filter(film => (film.rating === "TV-14"));
     let tvpg = record.filter(film => (film.rating === "TV-PG"));
     let pg13 = record.filter(film => (film.rating === "PG-13"));
-    let comedy = record.filter(film => (film.listed_in === "Comedies" || film.listed_in === "TV Comedies"))
+    let comedy = record.filter(film => (film.listed_in.includes("Comedies") || film.listed_in.includes("TV Comedies")))
     let crime = record.filter(film => (film.listed_in === "Crime TV Shows" || film.listed_in === "Crime"))
     let action = record.filter(film => (film.listed_in === "Action & Adventure"))
-    let anime = record.filter(film => (film.listed_in === "Anime Series" || film.listed_in === "Anime Features"))
+    let anime = record.filter(film => (film.listed_in.includes("Anime Series") || film.listed_in.includes("Anime Features") ))
     let oldest = record.sort((a, b) => (a.release_year > b.release_year) ? 1 : -1);
     let latest = record.sort((a, b) => (a.release_year < b.release_year) ? 1 : -1);
 
     const [category, setCategory] = useState(movie)
     const [header, setHeader] = useState('All Movies')
-
-    const [selected, setSelected] = useState(false);
+    const [selected, setSelected] = useState('movie')
 
     const [filterMenu, setFilterMenu] = useState(false);
+
     const handleMenu = () => {
         setFilterMenu(!filterMenu);
     }
 
-    const color = selected ? 'red' : 'black';
-    
-
     const handleCategory = (e) => {
         setCategory(e);
-        setSelected(true);
         if(e === movie){
             setHeader('All Movies')
+            setSelected('movie')
         } else if(e === tvshows){
             setHeader('All TV Shows')
+            setSelected('tvshows')
         } else if(e === r){
             setHeader('R Rated')
+            setSelected('r')
         } else if(e === tvma){
             setHeader('TV-MA Rated')
+            setSelected('tvma')
         } else if(e === tv14){
             setHeader('TV-14 Rated')
+            setSelected('tv14')
         } else if(e === tvpg){
             setHeader('TV-PG Rated')
+            setSelected('tvpg')
         } else if(e === pg13){
             setHeader('PG-13 Rated')
+            setSelected('pg13')
         } else if(e === comedy){
             setHeader('Comedy')
+            setSelected('comedy')
         } else if(e === crime){
             setHeader('Crime')
+            setSelected('crime')
         } else if(e === children){
             setHeader('Children & Family Movies')
+            setSelected('children')
         } else if(e === action){
             setHeader('Action & Adventure')
+            setSelected('action')
         } else if(e === anime){
             setHeader('Anime')
+            setSelected('anime')
         } else if(e === horror){
             setHeader('Horror')
+            setSelected('horror')
         }
     }
 
@@ -79,6 +88,7 @@ export default function Library(){
     useEffect(() => {
         setShowComponent(true);
     },[])
+
 
     return (
         <>
@@ -101,16 +111,18 @@ export default function Library(){
                     <div id='sidebar'className={filterMenu ? `${styles.mobilesidemenu}` : `${styles.sidemenu}`}>
                         
                         <ul>
-                            <li onClick={() => handleCategory(movie)}>All Movies</li>
+                            <li style={{cursor:'not-allowed', marginTop:'0rem'}}>Movies</li>
                             <ul>
-                                <li onClick={() => handleCategory(r)}>R-Rated</li>
+                                <li className={selected === 'movie' ? `${styles.selected}` : `${styles.not}`} onClick={() => handleCategory(movie)}>All Movies</li>
+                                <li className={selected === 'r' ? `${styles.selected}` : `${styles.not}`} onClick={() => handleCategory(r)}>R-Rated</li>
                             </ul>
-                            <li onClick={() => handleCategory(tvshows)}>All TV Shows</li>
+                            <li style={{cursor:'not-allowed'}}>TV Shows</li>  
                             <ul>
-                                <li onClick={() => handleCategory(tvma)}>TV—MA</li>
-                                <li onClick={() => handleCategory(tv14)}>TV—14</li>
-                                <li onClick={() => handleCategory(tvpg)}>TV—PG</li>
-                                <li onClick={() => handleCategory(pg13)}>PG—13</li>
+                                <li className={selected === 'tvshows' ? `${styles.selected}` : `${styles.not}`} onClick={() => handleCategory(tvshows)}>All TV Shows</li>
+                                <li className={selected === 'tvma' ? `${styles.selected}` : '' }  onClick={() => handleCategory(tvma)}>TV—MA</li>
+                                <li className={selected === 'tv14' ? `${styles.selected}` : '' } onClick={() => handleCategory(tv14)}>TV—14</li>
+                                <li className={selected === 'tvpg' ? `${styles.selected}` : '' } onClick={() => handleCategory(tvpg)}>TV—PG</li>
+                                <li className={selected === 'pg13' ? `${styles.selected}` : '' } onClick={() => handleCategory(pg13)}>PG—13</li>
                             </ul>
                             {/* <li style={{cursor:'not-allowed'}}>Alphabetical (A—Z)</li>
                             <ul>
@@ -120,12 +132,12 @@ export default function Library(){
 
                             <li style={{cursor:'not-allowed'}}>Genres</li>
                                 <ul>
-                                    <li onClick={() => handleCategory(action)}>Action & Thrillers</li>
-                                    <li onClick={() => handleCategory(anime)}>Anime</li>
-                                    <li onClick={() => handleCategory(children)}>Children & Family</li>
-                                    <li onClick={() => handleCategory(comedy)}>Comedy</li>
-                                    <li onClick={() => handleCategory(crime)}>Crime</li>
-                                    <li onClick={() => handleCategory(horror)}>Horror</li>
+                                    <li className={selected === 'action' ? `${styles.selected}` : '' }  onClick={() => handleCategory(action)}>Action & Thrillers</li>
+                                    <li className={selected === 'anime' ? `${styles.selected}` : '' } onClick={() => handleCategory(anime)}>Anime</li>
+                                    <li className={selected === 'children' ? `${styles.selected}` : '' } onClick={() => handleCategory(children)}>Children & Family</li>
+                                    <li className={selected === 'comedy' ? `${styles.selected}` : '' }  onClick={() => handleCategory(comedy)}>Comedy</li>
+                                    <li className={selected === 'crime' ? `${styles.selected}` : '' } onClick={() => handleCategory(crime)}>Crime</li>
+                                    <li className={selected === 'horror' ? `${styles.selected}` : '' } onClick={() => handleCategory(horror)}>Horror</li>
                                 </ul>
                             {/* <li style={{cursor:'not-allowed'}}>Release Year</li>
                             <ul>
@@ -141,7 +153,10 @@ export default function Library(){
                 <div className={styles.scrollablecont}>
                     <div className={styles.scrollablecontchild}>
                     <img className={styles.sorting} onClick={handleMenu} src='/sorting.svg'></img> 
-                    <h1 className={styles.categoryhead} id='categorytitle'>{header}</h1>
+                    <div className={styles.categoryinfo}>
+                        <h1 className={styles.vertihead} id='categorytitle'>{header}</h1> 
+                        <h3 className={styles.vertilength}>{category.length} items</h3>
+                    </div>
                     </div>
 
                 <div className={styles.vertiscroll}>
